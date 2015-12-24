@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap-webpack';
 
 import BigPic from './components/Jumbotron';
 

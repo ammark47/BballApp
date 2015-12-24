@@ -1,4 +1,3 @@
-require('bootstrap-webpack');
 var Navs = require('./components/Navs');
 var React = require('react');
 var Router = require('react-router');

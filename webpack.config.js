@@ -7,7 +7,7 @@ var ROOT_PATH = path.resolve(__dirname);
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
-  app: path.join(__dirname, './app/js/RRouter.jsx'),
+  app: path.join(__dirname, 'app/js/RRouter.jsx'),
   build: path.join(__dirname, 'build')
 };
 
@@ -17,23 +17,24 @@ var common = {
   entry: PATHS.app,
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    alias: {
-      css: path.resolve(__dirname, 'css')
-    }
+    
   },
   module: {
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: PATHS.app
+        include: './css'
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
-        include: PATHS.app
+        exclude: /node_modules/,
+        loaders: ['react-hot', 'babel'],
+        
       },
+      
 
+      {test: /^((?!config).)*\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
       { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
 
       // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
@@ -46,7 +47,8 @@ var common = {
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
       { test: /\.jpg$/, loader: "file-loader" },
-      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" }
+      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+
     ]
   },
   plugins: [
@@ -68,7 +70,7 @@ if(TARGET === 'start' || !TARGET) {
       progress: true,
 
       // display only errors to reduce the amount of output
-      stats: 'errors-only',
+       stats: 'errors-only',
 
       // parse host and port from env so this is easy
       // to customize
@@ -77,8 +79,7 @@ if(TARGET === 'start' || !TARGET) {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.NoErrorsPlugin()
+
     ]
   });
 }

@@ -1,6 +1,4 @@
 var React = require('react');
-require('bootstrap-webpack');
-
 var BigPic = require('./components/Jumbotron');
 
 var Major = require('./components/Major');
