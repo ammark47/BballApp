@@ -120,12 +120,18 @@ function useQueries(createHistory) {
     }
 
     function createPath(location, query) {
-      process.env.NODE_ENV !== 'production' ? _warning2['default'](query, 'the query argument to createPath is deprecated; use a location descriptor instead') : undefined;
+      //warning(
+      //  !query,
+      //  'the query argument to createPath is deprecated; use a location descriptor instead'
+      //)
       return history.createPath(appendQuery(location, query || location.query));
     }
 
     function createHref(location, query) {
-      process.env.NODE_ENV !== 'production' ? _warning2['default'](query, 'the query argument to createHref is deprecated; use a location descriptor instead') : undefined;
+      //warning(
+      //  !query,
+      //  'the query argument to createHref is deprecated; use a location descriptor instead'
+      //)
       return history.createHref(appendQuery(location, query || location.query));
     }
 

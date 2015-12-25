@@ -1,3 +1,4 @@
+//import warning from 'warning'
 'use strict';
 
 exports.__esModule = true;
@@ -18,13 +19,13 @@ var _createLocation2 = require('./createLocation');
 
 var _createLocation3 = _interopRequireDefault(_createLocation2);
 
-var _parsePath = require('./parsePath');
-
-var _parsePath2 = _interopRequireDefault(_parsePath);
-
 var _runTransitionHook = require('./runTransitionHook');
 
 var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
+
+var _parsePath = require('./parsePath');
+
+var _parsePath2 = _interopRequireDefault(_parsePath);
 
 var _deprecate = require('./deprecate');
 
@@ -163,11 +164,11 @@ function createHistory() {
   }
 
   function push(location) {
-    transitionTo(createLocation(location, null, _Actions.PUSH, createKey()));
+    transitionTo(createLocation(location, _Actions.PUSH, createKey()));
   }
 
   function replace(location) {
-    transitionTo(createLocation(location, null, _Actions.REPLACE, createKey()));
+    transitionTo(createLocation(location, _Actions.REPLACE, createKey()));
   }
 
   function goBack() {
@@ -202,10 +203,25 @@ function createHistory() {
     return createPath(location);
   }
 
-  function createLocation(path, state, action) {
-    var key = arguments.length <= 3 || arguments[3] === undefined ? createKey() : arguments[3];
+  function createLocation(location, action) {
+    var key = arguments.length <= 2 || arguments[2] === undefined ? createKey() : arguments[2];
 
-    return _createLocation3['default'](path, state, action, key);
+    if (typeof action === 'object') {
+      //warning(
+      //  false,
+      //  'The state (2nd) argument to history.createLocation is deprecated; use a ' +
+      //  'location descriptor instead'
+      //)
+
+      if (typeof location === 'string') location = _parsePath2['default'](location);
+
+      location = _extends({}, location, { state: action });
+
+      action = key;
+      key = arguments[3] || createKey();
+    }
+
+    return _createLocation3['default'](location, action, key);
   }
 
   // deprecated

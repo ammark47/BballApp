@@ -1,8 +1,9 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import MaterialTitlePanel from './MaterialTitlePanel';
 var TeamActions = require('../actions/TeamActions');
 
-const update = React.addons.update;
+
 
 const styles = {
   sidebar: {

@@ -1034,8 +1034,8 @@ as it was in the origin input.
 
 Every parser saves its own properties, but the default CSS parser uses:
 
-* `before`: the space symbols before the node. It also stores any non-standard
-  symbols before the declaration, like `_` from an IE hack.
+* `before`: the space symbols before the node. It also stores `*` and `_`
+  symbols before the declaration (IE hack).
 * `after`: the space symbols after the last child of the node to the end of the
   node.
 * `between`: the symbols between the property and value for declarations,
@@ -1777,7 +1777,7 @@ var comment.text //=> 'Empty file'
 [`source-map`]: https://github.com/mozilla/source-map
 [Promise]:      http://www.html5rocks.com/en/tutorials/es6/promises/
 
-[source map options]: https://github.com/postcss/postcss#source-map
+[source map options]: https://github.com/postcss/postcss/blob/master/docs/source-maps.md
 
 [`Processor#process(css, opts)`]: #processorprocesscss-opts
 [`Root#toResult(opts)`]:          #roottoresult-opts

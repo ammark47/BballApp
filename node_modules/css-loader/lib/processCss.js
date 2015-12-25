@@ -22,36 +22,41 @@ var parserPlugin = postcss.plugin("css-loader-parser", function(options) {
 		var urlItems = [];
 
 		function replaceImportsInString(str) {
-			var tokens = str.split(/(\S+)/);
-			tokens = tokens.map(function(token) {
-				var importIndex = imports["$" + token];
-				if(typeof importIndex === "number") {
-					return "___CSS_LOADER_IMPORT___" + importIndex + "___";
-				}
-				return token;
-			});
-			return tokens.join("");
+			if(options.import) {
+				var tokens = str.split(/(\S+)/);
+				tokens = tokens.map(function (token) {
+					var importIndex = imports["$" + token];
+					if(typeof importIndex === "number") {
+						return "___CSS_LOADER_IMPORT___" + importIndex + "___";
+					}
+					return token;
+				});
+				return tokens.join("");
+			}
+			return str;
 		}
 
-		css.walkAtRules("import", function(rule) {
-			var values = Tokenizer.parseValues(rule.params);
-			var url = values.nodes[0].nodes[0];
-			if(url.type === "url") {
-				url = url.url;
-			} else if(url.type === "string") {
-				url = url.value;
-			} else throw rule.error("Unexpected format" + rule.params);
-			values.nodes[0].nodes.shift();
-			var mediaQuery = Tokenizer.stringifyValues(values);
-			if(loaderUtils.isUrlRequest(url, options.root) && options.mode === "global") {
-				url = loaderUtils.urlToRequest(url, options.root);
-			}
-			importItems.push({
-				url: url,
-				mediaQuery: mediaQuery
+		if(options.import) {
+			css.walkAtRules("import", function(rule) {
+				var values = Tokenizer.parseValues(rule.params);
+				var url = values.nodes[0].nodes[0];
+				if(url.type === "url") {
+					url = url.url;
+				} else if(url.type === "string") {
+					url = url.value;
+				} else throw rule.error("Unexpected format" + rule.params);
+				values.nodes[0].nodes.shift();
+				var mediaQuery = Tokenizer.stringifyValues(values);
+				if(loaderUtils.isUrlRequest(url, options.root) && options.mode === "global") {
+					url = loaderUtils.urlToRequest(url, options.root);
+				}
+				importItems.push({
+					url: url,
+					mediaQuery: mediaQuery
+				});
+				rule.remove();
 			});
-			rule.remove();
-		});
+		}
 
 		css.walkRules(function(rule) {
 			if(rule.selector === ":export") {
@@ -77,31 +82,39 @@ var parserPlugin = postcss.plugin("css-loader-parser", function(options) {
 			exports[exportName] = replaceImportsInString(exports[exportName]);
 		});
 
+		function processNode(item) {
+			switch (item.type) {
+				case "value":
+					item.nodes.forEach(processNode);
+					break;
+				case "nested-item":
+					item.nodes.forEach(processNode);
+					break;
+				case "item":
+					var importIndex = imports["$" + item.name];
+					if (typeof importIndex === "number") {
+						item.name = "___CSS_LOADER_IMPORT___" + importIndex + "___";
+					}
+					break;
+				case "url":
+					if (options.url && !/^#/.test(item.url) && loaderUtils.isUrlRequest(item.url, options.root)) {
+						item.stringType = "";
+						delete item.innerSpacingBefore;
+						delete item.innerSpacingAfter;
+						var url = item.url;
+						item.url = "___CSS_LOADER_URL___" + urlItems.length + "___";
+						urlItems.push({
+							url: url
+						});
+					}
+					break;
+			}
+		}
+
 		css.walkDecls(function(decl) {
 			var values = Tokenizer.parseValues(decl.value);
 			values.nodes.forEach(function(value) {
-				value.nodes.forEach(function(item) {
-					switch(item.type) {
-					case "item":
-						var importIndex = imports["$" + item.name];
-						if(typeof importIndex === "number") {
-							item.name = "___CSS_LOADER_IMPORT___" + importIndex + "___";
-						}
-						break;
-					case "url":
-						if(!/^#/.test(item.url) && loaderUtils.isUrlRequest(item.url, options.root)) {
-							item.stringType = "";
-							delete item.innerSpacingBefore;
-							delete item.innerSpacingAfter;
-							var url = item.url;
-							item.url = "___CSS_LOADER_URL___" + urlItems.length + "___";
-							urlItems.push({
-								url: url
-							});
-						}
-						break;
-					}
-				});
+				value.nodes.forEach(processNode);
 			});
 			decl.value = Tokenizer.stringifyValues(values);
 		});
@@ -129,18 +142,22 @@ module.exports = function processCss(inputSource, inputMap, options, callback) {
 
 	var parserOptions = {
 		root: root,
-		mode: options.mode
+		mode: options.mode,
+		url: query.url !== false,
+		import: query.import !== false
 	};
 
 	var pipeline = postcss([
 		localByDefault({
 			mode: options.mode,
 			rewriteUrl: function(global, url) {
-				if(!loaderUtils.isUrlRequest(url, root)) {
-					return url;
-				}
-				if(global) {
-					return loaderUtils.urlToRequest(url, root);
+				if(parserOptions.url){
+					if(!loaderUtils.isUrlRequest(url, root)) {
+						return url;
+					}
+					if(global) {
+						return loaderUtils.urlToRequest(url, root);
+					}
 				}
 				return url;
 			}
