@@ -22,15 +22,19 @@ const styles = {
   },
 };
 
-var SidebarContent = React.createClass({
-  getInitialState() {
-    return {final_links: this._createList()};
-  },
+class SidebarContent extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.enterHover = this.enterHover.bind(this);
+    this.exitHover = this.exitHover.bind(this);
+    this.pushName = this.pushName.bind(this);
+    this.state = {final_links: this._createList()};
+  }
 
-  pushName (name) {
+  pushName(name) {
                 TeamActions.setTeamName(name);
 
-            },
+            }
 
   _createList() {
           let links = ["Atlanta Hawks", "Boston Celtics", 
@@ -72,23 +76,21 @@ var SidebarContent = React.createClass({
               );
           }
           return (final_links);
-  },
+  }
 
   componentDidMount() {
       var final_links = this._createList();
-  },  
+  }
 
-
-
-  enterHover (team_name) {
+  enterHover(team_name) {
     
       TeamActions.setHoverTeam(team_name);
     
-  },
+  }
 
-  exitHover () {
+  exitHover() {
     TeamActions.removeHoverTeam();
-  },
+  }
 
   render() {
     let style = styles.sidebar;
@@ -105,11 +107,9 @@ var SidebarContent = React.createClass({
         <div style={styles.divider} />
         {this.state.final_links}
       </MaterialTitlePanel>);
-  },
-});
-
-export default SidebarContent;
-
+  }
+}
 
 // hover feature removed for now
 // onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}
+export default SidebarContent;

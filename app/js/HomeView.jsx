@@ -6,8 +6,8 @@ var Footer = require('./components/Footer');
 var GA = require('./components/GA');
 
 
-var HomePage = React.createClass({
-	render(){
+class HomePage extends React.Component {
+    render() {
 		return (
 				<div>
 					<BigPic />
@@ -17,6 +17,6 @@ var HomePage = React.createClass({
 				</div>
 			)
 	}
-});
+}
 
 module.exports = HomePage;

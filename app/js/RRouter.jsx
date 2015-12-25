@@ -15,8 +15,8 @@ var base = document.getElementById('base');
 
 var routes = (
   <Route>
-  	<Route path="/" component={HomeView} />
-    <Route path="/app" component={App} />
+  	<Route path="/" Handler={HomeView} />
+    <Route path="/app" Handler={App} />
   </Route>
 );
 

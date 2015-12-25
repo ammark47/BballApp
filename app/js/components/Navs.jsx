@@ -4,7 +4,7 @@ import MaterialTitlePanel from './MaterialTitlePanel';
 import ThumbNail from './ThumbNail';
 var TeamActions = require('../actions/TeamActions');
 var TeamStore = require('../stores/TeamStore');
-
+import { render } from 'react-dom';
 var React = require('react');
 
 
@@ -16,14 +16,14 @@ const styles = {
   },
 };
 
-var Navs = React.createClass({
-  getStateFromStore() {
-    return TeamStore.getSelected();
-      
-  },
+class Navs extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this._onChange = this._onChange.bind(this);
+    this.menuButtonClick = this.menuButtonClick.bind(this);
+    this.onSetOpen = this.onSetOpen.bind(this);
 
-  getInitialState() {
-    return {
+    this.state = {
       docked: true,
       open: false,
       transitions: true,
@@ -32,31 +32,30 @@ var Navs = React.createClass({
       dragToggleDistance: 30,
       name: this.getStateFromStore()
     };
-  },
+  }
 
-  componentDidMount: function() {
+  getStateFromStore() {
+    return TeamStore.getSelected();
+      
+  }
+
+  componentDidMount() {
     TeamStore.addChangeListener(this._onChange);
     
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     TeamStore.removeChangeListener(this._onChange);
-  },
-
-
+  }
 
   onSetOpen(open) {
     this.setState({open: open});
-  },
-
-
+  }
 
   menuButtonClick(ev) {
     ev.preventDefault();
     this.onSetOpen(!this.state.open);
-  },
-
-
+  }
 
   renderPropNumber(prop) {
     let setMethod = (ev) => {
@@ -69,7 +68,7 @@ var Navs = React.createClass({
       <p key={prop}>
          {prop} <input type='number' onChange={setMethod} value={this.state[prop]} />
       </p>);
-  },
+  }
 
   render() {
     let sidebar = <SidebarContent />;
@@ -107,14 +106,14 @@ var Navs = React.createClass({
         </MaterialTitlePanel>
       </Sidebar>
     );
-  },
+  }
 
   _onChange() {
     var team = this.getStateFromStore();
     this.setState({name: team});
    
-  },
-});
+  }
+}
 
 
 module.exports = Navs;
