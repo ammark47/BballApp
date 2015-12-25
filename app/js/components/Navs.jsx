@@ -16,7 +16,7 @@ const styles = {
   },
 };
 
-class Navs extends React.Component {
+export default class Navs extends React.Component {
   constructor(props, context) {
     super(props, context);
     this._onChange = this._onChange.bind(this);
@@ -116,4 +116,4 @@ class Navs extends React.Component {
 }
 
 
-module.exports = Navs;
+// module.exports = Navs;

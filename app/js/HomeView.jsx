@@ -6,10 +6,11 @@ var Footer = require('./components/Footer');
 var GA = require('./components/GA');
 
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
     render() {
 		return (
 				<div>
+					
 					<BigPic />
 					<Major />
 					<Footer />
@@ -19,4 +20,4 @@ class HomePage extends React.Component {
 	}
 }
 
-module.exports = HomePage;
+//module.exports = HomePage;
