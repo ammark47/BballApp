@@ -84,4 +84,4 @@ var ThumbNail = React.createClass({
 });
 
 
-module.exports = ThumbNail;
+// module.exports = ThumbNail;

@@ -1,12 +1,15 @@
 var React = require('react');
 var BigPic = require('./components/Jumbotron');
+import Router from 'react-router';  
+import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 var Major = require('./components/Major');
 var Footer = require('./components/Footer');
 var GA = require('./components/GA');
 
 
-export default class HomePage extends React.Component {
+var HomeView = React.createClass ( {
+
     render() {
 		return (
 				<div>
@@ -15,9 +18,10 @@ export default class HomePage extends React.Component {
 					<Major />
 					<Footer />
 					<GA />
+					<RouteHandler />
 				</div>
 			)
 	}
-}
+});
 
-//module.exports = HomePage;
+module.exports = HomeView;

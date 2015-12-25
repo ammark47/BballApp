@@ -7,7 +7,7 @@ var ROOT_PATH = path.resolve(__dirname);
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
-  app: path.join(__dirname, 'app/js/RRouter.jsx'),
+  app: path.join(__dirname, 'app/js/Router.jsx'),
   build: path.join(__dirname, 'build')
 };
 
