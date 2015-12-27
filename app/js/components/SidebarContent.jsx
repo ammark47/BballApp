@@ -110,6 +110,7 @@ class SidebarContent extends React.Component {
   }
 }
 
+export default SidebarContent;
 // hover feature removed for now
 // onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}
-export default SidebarContent;
+//module.exports = SidebarContent;

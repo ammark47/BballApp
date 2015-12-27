@@ -3,7 +3,7 @@ import Jumbotron  from 'react-bootstrap/lib/Jumbotron';
 import Buttons from 'react-button';
 
 
-export default class BigPic extends React.Component {
+class BigPic extends React.Component {
 		render() {
 			var theme = {
 			    disabledStyle: { background: '#03a9f4'},
@@ -45,3 +45,5 @@ export default class BigPic extends React.Component {
 				)
 		}
 	}
+
+export default BigPic;

@@ -1,16 +1,17 @@
 var React = require('react');
-var BigPic = require('./components/Jumbotron');
+import BigPic from './components/Jumbotron';
 import Router from 'react-router';  
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
-var Major = require('./components/Major');
-var Footer = require('./components/Footer');
-var GA = require('./components/GA');
+import Major from './components/Major';
+import Footer from './components/Footer';
+import GA from './components/GA';
 
 
 var HomeView = React.createClass ( {
 
     render() {
+    	
 		return (
 				<div>
 					
@@ -18,7 +19,7 @@ var HomeView = React.createClass ( {
 					<Major />
 					<Footer />
 					<GA />
-					<RouteHandler />
+					{this.props.children}
 				</div>
 			)
 	}

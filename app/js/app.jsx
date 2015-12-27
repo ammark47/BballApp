@@ -8,14 +8,15 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 var App = React.createClass ({
     render() {
+    
 		return ( 
 				<div>
-
 					<Navs />
-					<RouteHandler/>
+					{this.props.children}
 				</div>
 			);
 		}
 });
 
- module.exports = App;
+
+module.exports = App;

@@ -15,6 +15,7 @@ import { render } from 'react-dom';
 
 var base = document.getElementById('base');
 
+
 var routes = (
    <Route>
 	  	<Route path="/" handler={HomeView} />
@@ -23,7 +24,7 @@ var routes = (
  );
  
 Router.run(routes, function(Handler) {
-   render(<Handler />, base);
+   React.render(<Handler />, base);
 });
 
 ga('create', 'UA-XXXX-Y', 'auto');

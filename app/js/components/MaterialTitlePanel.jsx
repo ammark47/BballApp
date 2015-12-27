@@ -20,9 +20,7 @@ const styles = {
 
 class MaterialTitlePanel extends React.Component {
   render() {
-    let rootStyle = this.props.style ?
-                      update(styles.root, {$merge: this.props.style}) :
-                      styles.root;
+    const rootStyle = props.style ? {...styles.root, ...props.style} : styles.root;
 
     return (
       <div style={rootStyle}>
