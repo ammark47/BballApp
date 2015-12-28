@@ -2,10 +2,11 @@ import Sidebar from "react-sidebar";
 import SidebarContent from './SidebarContent';
 import MaterialTitlePanel from './MaterialTitlePanel';
 import ThumbNail from './ThumbNail';
+
 var TeamActions = require('../actions/TeamActions');
 var TeamStore = require('../stores/TeamStore');
 import { render } from 'react-dom';
-var React = require('react');
+import React from 'react';
 
 
 const styles = {
@@ -30,9 +31,12 @@ export default class Navs extends React.Component {
       touch: true,
       touchHandleWidth: 20,
       dragToggleDistance: 30,
-      name: this.getStateFromStore()
+      name: this.getStateFromStore(),
     };
   }
+
+
+
 
   getStateFromStore() {
     return TeamStore.getSelected();
@@ -116,5 +120,3 @@ export default class Navs extends React.Component {
   }
 }
 
-
-// module.exports = Navs;

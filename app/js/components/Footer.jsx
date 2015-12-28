@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
 					<p className="footer-links">
 					<a href="#">Home</a>
 					&nbsp;·&nbsp; 
-					<a href="#">Get Started</a>
+					<a href="/#/app">Get Started</a>
 					
 					</p>
 					<p className="footer-company-name">Streets Ahead by Ammar Karim © 2015</p>

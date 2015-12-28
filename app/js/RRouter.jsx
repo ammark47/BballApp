@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Router, Route, Link } from 'react-router';
+import createHistory from 'history/lib/createHashHistory';
 
 import  App  from './app';
 import  HomeView from './HomeView';
@@ -14,6 +15,11 @@ import { render } from 'react-dom';
 
 var base = document.getElementById('base');
 
+// Opt-out of persistent state, not recommended.
+var history = createHistory({
+  queryKey: false
+});
+
 
 // var routes = (
 //   <Route>
@@ -24,8 +30,9 @@ var base = document.getElementById('base');
 
 // console.log(HomeView);
 
+
 render((
-  <Router>
+  <Router history={history} >
     <Route path="/" component={HomeView} />
     <Route path="app" component={App} />
     
