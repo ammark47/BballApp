@@ -26,9 +26,9 @@ var base = document.getElementById('base');
 
 render((
   <Router>
-    <Route path="/" component={HomeView}>
-      <Route path="app" component={App} />
-    </Route>
+    <Route path="/" component={HomeView} />
+    <Route path="app" component={App} />
+    
   </Router>
 ), base)
 

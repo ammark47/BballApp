@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 
 const styles = {
   root: {
-   fontFamily: '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
-   fontWeight: 300,
+    fontFamily: '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
+    fontWeight: 300,
   },
   header: {
     backgroundColor: '#03a9f4',
@@ -13,22 +11,17 @@ const styles = {
     padding: '16px',
     fontSize: '1.5em',
   },
-  content: {
-    padding: '16px',
-  },
 };
 
-class MaterialTitlePanel extends React.Component {
-  render() {
-    const rootStyle = props.style ? {...styles.root, ...props.style} : styles.root;
+const MaterialTitlePanel = (props) => {
+  const rootStyle = props.style ? {...styles.root, ...props.style} : styles.root;
 
-    return (
-      <div style={rootStyle}>
-        <div style={styles.header}>{this.props.title}</div>
-        <div style={styles.content}>{this.props.children}</div>
-      </div>
-    );
-  }
-}
+  return (
+    <div style={rootStyle}>
+      <div style={styles.header}>{props.title}</div>
+      {props.children}
+    </div>
+  );
+};
 
 export default MaterialTitlePanel;

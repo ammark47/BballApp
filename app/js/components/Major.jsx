@@ -11,7 +11,7 @@ export default class Major extends React.Component {
 							
 						</div>
 					
-						<InfoBar column="column1 col-md-4 " icon="icon icon-star" title="Choose Your Team" description="Choose your favorite NBA team." />
+						<InfoBar column="column1 col-md-4 leftColumn" icon="icon icon-star" title="Choose Your Team" description="Choose your favorite NBA team." />
 
 						<InfoBar column="column1 col-md-4 middleColumn" icon="icon icon-search" title="Explore" description="Explore the latest news and stay Streets Ahead. And by latest news we mean to the minute." />
 

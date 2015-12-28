@@ -1,6 +1,7 @@
 import React from 'react';
 import Jumbotron  from 'react-bootstrap/lib/Jumbotron';
 import Buttons from 'react-button';
+import { Router, Route, Link } from 'react-router';
 
 
 class BigPic extends React.Component {
@@ -36,7 +37,9 @@ class BigPic extends React.Component {
 							    	<h1>Streets Ahead</h1>
 							    	<p>Real-time news for your favorite sports team</p>
 							    	<hr className="intro-divider"></hr>
-							    	<Buttons theme={theme} >Get Started</Buttons>
+							    	<Buttons theme={theme} onClick={<Link to="/app"/>}>
+										Get Started
+							    	</Buttons>
 							    </div>
 						    </div>
 						 </Jumbotron>

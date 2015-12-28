@@ -3,7 +3,7 @@
   "env": {
     "start": {
         "plugins": 
-          ["transform-react-jsx", { 
+          ["transform-object-rest-spread", "transform-react-jsx", { 
                 
                  }],
     }

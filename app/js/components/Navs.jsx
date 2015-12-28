@@ -71,7 +71,7 @@ export default class Navs extends React.Component {
   }
 
   render() {
-     console.log(ThumbNail);
+     
     let sidebar = <SidebarContent />;
 
     let contentHeader = (

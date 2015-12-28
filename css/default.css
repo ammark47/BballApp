@@ -166,6 +166,8 @@
 		font-size: 3em;
 		font-weight: 700;
 		color: #3f3f3f;
+		margin-left: .7em;
+		text-align: center;
 	}
 
 	.major .byline
@@ -442,13 +444,14 @@
 	.column4
 	{
 		width: 282px;
-		
+
 	}
 	
 	.column1,
 	.column2
 	{
 		float: left;
+
 		
 	}
 	
@@ -460,13 +463,24 @@
 	.column4
 	{
 		float: right;
+
 	}
 
 	.middleColumn .title .byline
 	{
-		margin-top: 2.5em;
+		
 	}
 
+	.middleColumn
+	{
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+	.leftColumn
+	{
+		margin-left: 2.3em;
+	}
 /*********************************************************************************/
 /* Portfolio                                                                     */
 /*********************************************************************************/

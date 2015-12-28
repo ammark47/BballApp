@@ -4,29 +4,31 @@ import BasicInfo from './BasicInfo';
 var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var TeamStore = require('../stores/TeamStore');
+var reactMixin = require('react-mixin');
 
+// reactMixin(ThumbNail.prototype, Firebase);
 
+class ThumbNail extends React.Component {
+	constructor(props, context) {
+    super(props, context);
+    this._onChange = this._onChange.bind(this);
+    this._updateArticle = this._updateArticle.bind(this);
 
-var ThumbNail = React.createClass({
-	mixins: [ReactFireMixin],
+    this.state = {
+			name: this.getTeamState(),
+			articles: []
+			};
+	}
+	
 	//retrieves current team name from TeamStore
 	getTeamState() {
 		return  TeamStore.getSelected() ;
-	},
+	}
 	//gets the team name and stores it as initial state in 'name'
 	//initializes articles as []
-	getInitialState() {
-		return {
-			name: this.getTeamState(),
-			articles: []
-				};
-	},
+	
 	// sets baseUrl as prop with base firebase node
-	getDefaultProps() {
-		return {
-			baseUrl: "https://shining-inferno-1085.firebaseio.com/"
-		}
-	},
+	
 
 	// updates the node being referred to using the state 'name'
 	_updateArticle() {
@@ -35,20 +37,20 @@ var ThumbNail = React.createClass({
 		// binds articles with node from teamRef
 		this.bindAsArray(teamRef, 'articles');
 		
-	},
+	}
 
 	//triggered when component mounts
-	componentDidMount: function() {
+	componentDidMount() {
 		//adds the change listener to listen to changes in TeamStore
 		TeamStore.addChangeListener(this._onChange);
 		// triggers updateArticle
 		// bind article to current state.name
 		this._updateArticle();
 		
-	},
+	}
 
 	//triggered when component unmounts
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		//removes change listener
 		TeamStore.removeChangeListener(this._onChange);
 		//unbinds article from articles
@@ -57,7 +59,7 @@ var ThumbNail = React.createClass({
 			this.unbind("articles");
 		}
 		//this.unbind("articles");
-	},
+	}
 	//renders BasicInfo with all the articles
 	render() {
 		return (
@@ -66,7 +68,7 @@ var ThumbNail = React.createClass({
 				<BasicInfo article={this.state.articles} />
 	        </ul>
 			)	
-	},
+	}
 	//this is added when the component mounts 
 	//gets triggered when team name changes
 	_onChange() {
@@ -79,9 +81,15 @@ var ThumbNail = React.createClass({
 			//articles is bound to a new node
 			this._updateArticle();
 		});
-	},
+	}
 
-});
+}
 
+	// sets baseUrl as prop with base firebase node
+ThumbNail.defaultProps = {
+ baseUrl: "https://shining-inferno-1085.firebaseio.com/"
+};
 
-// module.exports = ThumbNail;
+reactMixin(ThumbNail.prototype, ReactFireMixin);
+
+ export default ThumbNail;
