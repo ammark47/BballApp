@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import ReactDOM from 'react-dom';
 import MaterialTitlePanel from './MaterialTitlePanel';
 import Radium from 'radium';
@@ -68,8 +68,11 @@ class SidebarContent extends React.Component {
     this.enterHover = this.enterHover.bind(this);
     this.exitHover = this.exitHover.bind(this);
     this.pushName = this.pushName.bind(this);
+    this.createList = this.createList.bind(this);
+    this.changeLinks = this.changeLinks.bind(this);
+    this.setState = this.setState.bind(this);
     this.state = {
-      final_links: this._createList(),
+      result_links: this.createList(),
       isShowingModal: false,
       initial_links: first_links,
     };
@@ -84,52 +87,36 @@ class SidebarContent extends React.Component {
                 
             }
 
-  _createList() {
-          let links = ["Atlanta Hawks", "Boston Celtics", 
-                      "Brooklyn Nets",
-                      "Charlotte Hornets",
-                      "Chicago Bulls",
-                      "Cleveland Cavaliers", 
-                      "Dallas Mavericks",
-                      "Denver Nuggets",
-                      "Detroit Pistons",
-                      "Golden State Warriors", "Houston Rockets", 
-                      "Indiana Pacers",
-                      "LA Clippers",
-                      "LA Lakers",
-                      "Memphis Grizzlies", 
-                      "Miami Heat",
-                      "Milwaukee Bucks",
-                      "Minnesota Timberwolves",
-                      "New Orleans Pelicans",
-                      "New York Knicks",
-                      "Oklahoma City Thunder",
-                      "Orlando Magic",
-                      "Philadelphia Sixers",
-                      "Phoenix Suns",
-                      "Portland Trail Blazers",
-                      "Sacramento Kings",
-                      "San Antonio Spurs",
-                      "Toronto Raptors",
-                      "Utah Jazz", "Washington Wizards"];
+  createList(results) {
+    let initial_links = first_links;
+    
+    if(typeof results == 'undefined' || results.length == 0) {
+          var links = [];
+           links = initial_links;
 
-          let final_links = [];
+            } else {
+              links = results;
+            }
+          
+          let result_links = [];
 
 
           for(let j=0; j < links.length; j++) {
             let team = links[j];
           
-            final_links.push(
+            result_links.push(
                 <a key={links[j]} style={styles.base.sidebarLink} onClick={this.pushName.bind(null, team)} onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}>{team}
 
                 </a>
               );
           }
-          return (final_links);
+          return (result_links);
+
   }
 
   componentDidMount() {
-      var final_links = this._createList();
+      var result_links = this.createList();
+
   }
 
   enterHover(team_name) {
@@ -142,7 +129,8 @@ class SidebarContent extends React.Component {
     TeamActions.removeHoverTeam();
   }
 
-  changeLinks() {
+  changeLinks(e, results) {
+       this.setState({result_links: this.createList(results)});
       
   }
 
@@ -171,7 +159,11 @@ class SidebarContent extends React.Component {
 
         </a>
         <div style={styles.base.divider} />
-        {this.state.final_links}
+            <Search
+                items={this.state.initial_links}
+                placeholder='Search for your team'
+                onChange={this.changeLinks}/>
+            {this.state.result_links}
       </MaterialTitlePanel>);
   }
 }
@@ -180,9 +172,3 @@ export default SidebarContent;
 // hover feature 
 // onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}
 
-//search feature
-// <Search
-        //     items={this.state.initial_links}
-        //     placeholder='Search for your team'
-        //     onChange={this.changeLinks}/>
-//module.exports = SidebarContent;

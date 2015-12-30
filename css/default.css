@@ -685,4 +685,8 @@ body {
 	background-color: #00bcd4;
 }
 
+.react-search__menu {
+  display: none;  
+}
+
 
