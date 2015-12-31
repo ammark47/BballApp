@@ -5,29 +5,41 @@ var _ = require('underscore');
 
 
 var _team = "New York Knicks", _original = "New York Knicks";
-
+var _localTeam = localStorage.getItem('_localTeam');
+console.log(_localTeam);
 //set the team name when side menu is clicked and reserving the original team when being hovered
 function setName(name) {
 	_team = name;
 	_original = name;
+	localStorage.setItem('_localTeam', name);
+	localStorage.setItem('_localOriginal', name);
+	
 }
 
 //set a temp team name when sidemenu item is being hovered
 function setHover(team) {
 	_original = _team;
+	localStorage.setItem('_localOriginal', _team);
+
 	_team = team;
+	localStorage.setItem('_localTeam', team);
 
 }
 
 function removeHover() {
 	//console.log(_original);
 	_team = _original;
+	localStorage.setItem('_localTeam', _original);
 }
 
 var TeamStore = _.extend({}, EventEmitter.prototype, {
 	getSelected: function() {
-		
+		var _localTeam = localStorage.getItem('_localTeam');
+		if(_localTeam){
+			return _localTeam;
+		} else {
 		return _team;
+	}
 	},
 
 	emitChange: function() {

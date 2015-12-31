@@ -87,7 +87,7 @@ class ThumbNail extends React.Component {
 
 	// sets baseUrl as prop with base firebase node
 ThumbNail.defaultProps = {
- baseUrl: "https://shining-inferno-1085.firebaseio.com/"
+ baseUrl: "https://articleserver.firebaseio.com/"
 };
 
 reactMixin(ThumbNail.prototype, ReactFireMixin);

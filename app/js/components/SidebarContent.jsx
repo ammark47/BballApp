@@ -116,6 +116,8 @@ class SidebarContent extends React.Component {
 
   componentDidMount() {
       var result_links = this.createList();
+      
+      // ReactDOM.findDOMNode(this.refs.Search).focus();
 
   }
 
@@ -136,6 +138,7 @@ class SidebarContent extends React.Component {
 
   render() {
     let style = styles.base.sidebar;
+
 
     if (this.props.style) {
       style = update(style, {$merge: this.props.style});
