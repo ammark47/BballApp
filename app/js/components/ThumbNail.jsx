@@ -1,6 +1,7 @@
 import React from 'react';
 import Img from './Img';
 import BasicInfo from './BasicInfo';
+import Notification from './Notification';
 var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var TeamStore = require('../stores/TeamStore');
@@ -13,29 +14,104 @@ class ThumbNail extends React.Component {
     super(props, context);
     this._onChange = this._onChange.bind(this);
     this._updateArticle = this._updateArticle.bind(this);
+   
+
 
     this.state = {
 			name: this.getTeamState(),
-			articles: []
+			articles: [],
+			ignore: true,
+			title: ''
 			};
+	}
+
+	handlePermissionGranted() {
+	    console.log('Permission Granted');
+	    this.setState({
+	      ignore: false
+	    });
+	 }
+
+	handlePermissionDenied() {
+	     console.log('Permission Denied');
+	     this.setState({
+	       ignore: true
+	     });
+	}
+
+	handleNotSupported(){
+	    console.log('Web Notification not Supported');
+	    this.setState({
+	      ignore: true
+	    });
+	  }
+
+	handleNotificationOnClick(e, tag){
+	  console.log(e, 'Notification clicked tag:' + tag);
+	}
+
+    handleNotificationOnError(e, tag){
+      console.log(e, 'Notification error tag:' + tag);
+    }
+
+    handleNotificationOnClose(e, tag){
+      console.log(e, 'Notification closed tag:' + tag);
+    }
+
+    handleNotificationOnShow(e, tag){
+      console.log(e, 'Notification shown tag:' + tag);
+    }
+
+	handleButtonClick() {
+
+	    if(this.state.ignore) {
+	      return;
+	    }
+
+	
+
+	    const title = "";
+	    const body = 'Hello' + new Date();
+	    const tag = "";
+	    const icon = 'http://georgeosddev.github.io/react-web-notification/example/Notifications_button_24.png';
+	    // const icon = 'http://localhost:3000/Notifications_button_24.png';
+
+	    // Available options
+	    // See https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
+	    const options = {
+	      tag: tag,
+	      body: body,
+	      icon: icon,
+	      lang: 'en',
+	      dir: 'ltr'
+	    }
+	    this.setState({
+	      title: title,
+	      options: options
+	    });
 	}
 	
 	//retrieves current team name from TeamStore
 	getTeamState() {
 		return  TeamStore.getSelected() ;
 	}
-	//gets the team name and stores it as initial state in 'name'
-	//initializes articles as []
-	
-	// sets baseUrl as prop with base firebase node
 	
 
 	// updates the node being referred to using the state 'name'
 	_updateArticle() {
 		//set teamRef as the node indicated by state.name
-		var teamRef = new Firebase(this.props.baseUrl + this.state.name + "/results");
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + "/results");
+		var teamRef = new Firebase(this.props.baseUrl + this.state.name);
+		
 		// binds articles with node from teamRef
-		this.bindAsArray(teamRef, 'articles');
+		this.bindAsArray(teamResRef, 'articles');
+		teamResRef.limitToLast(1).on('child_added', function(childSnapshot, prevChildKey) {
+		  // code to handle new child.
+		  // console.log(childSnapshot.val());
+		  	if(!childSnapshot.exists()){
+		  		console.log(childSnapshot.val());
+		  	}
+		});
 		
 	}
 
@@ -66,7 +142,21 @@ class ThumbNail extends React.Component {
 
 			<ul className="tiles">
 				<BasicInfo article={this.state.articles} />
+		        <Notification
+	          ignore={this.state.ignore && this.state.title !== ''}
+	          notSupported={this.handleNotSupported.bind(this)}
+	          onPermissionGranted={this.handlePermissionGranted.bind(this)}
+	          onPermissionDenied={this.handlePermissionDenied.bind(this)}
+	          onShow={this.handleNotificationOnShow.bind(this)}
+	          onClick={this.handleNotificationOnClick.bind(this)}
+	          onClose={this.handleNotificationOnClose.bind(this)}
+	          onError={this.handleNotificationOnError.bind(this)}
+	          timeout={5000}
+	          title={this.state.title}
+	          options={this.state.options}/>
+
 	        </ul>
+	        
 			)	
 	}
 	//this is added when the component mounts 

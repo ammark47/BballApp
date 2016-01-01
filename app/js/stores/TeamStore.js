@@ -4,9 +4,9 @@ var TeamConstants = require('../constants/TeamConstants');
 var _ = require('underscore');
 
 
-var _team = "New York Knicks", _original = "New York Knicks";
+
+var _team = "New York Knicks"; var _original = "New York Knicks";
 var _localTeam = localStorage.getItem('_localTeam');
-console.log(_localTeam);
 //set the team name when side menu is clicked and reserving the original team when being hovered
 function setName(name) {
 	_team = name;
@@ -35,9 +35,12 @@ function removeHover() {
 var TeamStore = _.extend({}, EventEmitter.prototype, {
 	getSelected: function() {
 		var _localTeam = localStorage.getItem('_localTeam');
-		if(_localTeam){
+
+		if(_localTeam !== "undefined"){
+			// console.log(typeof (_localTeam) );
 			return _localTeam;
 		} else {
+
 		return _team;
 	}
 	},

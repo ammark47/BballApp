@@ -9,10 +9,14 @@ var styles = {
 }
 
 
-export default class BasicInfo extends React.Component {
+class BasicInfo extends React.Component {
 	render() {
 
 		var article = this.props.article;
+		article.sort(function(a, b){
+			return b.date - a.date;
+		});
+
 		var articleNodes = article.map(function(article, key){
 				if(article.iurl == ""){
 					article.iurl = "/images/basketball.jpg";
@@ -35,3 +39,6 @@ export default class BasicInfo extends React.Component {
 			)
 	}
 }
+
+
+export default BasicInfo;
