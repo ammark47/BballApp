@@ -3,7 +3,7 @@
 }
 .tiles {
   list-style-type: none;
-  position: relative; /** Needed to ensure items are laid out relative to this container **/
+  position: absolute; /** Needed to ensure items are laid out relative to this container **/
   margin: 0;
   padding: 0;
   float: left;
@@ -26,7 +26,7 @@
 	border-radius: 0.2em;
 	margin-left: 1em;
 	margin-top: 2em;
-
+	height: 21em;
 }
 .tiles li img{
 	border-top-left-radius:0.2em;
@@ -39,4 +39,7 @@
 
 .tiles li img {
  	display: block;
+    height: 10em;
+    width: 100%;
+}
 }
