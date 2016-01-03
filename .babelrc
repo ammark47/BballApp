@@ -3,7 +3,7 @@
   "env": {
     "start": {
         "plugins": 
-          ['transform-decorators-legacy', "transform-object-rest-spread", "transform-react-jsx", { 
+          ["transform-inline-environment-variables", 'transform-decorators-legacy', "transform-object-rest-spread", "transform-react-jsx", { 
                 
                  }],
     }

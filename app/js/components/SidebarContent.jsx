@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import ReactDOM from 'react-dom';
 import MaterialTitlePanel from './MaterialTitlePanel';
-import Radium from 'radium';
 var TeamActions = require('../actions/TeamActions');
 
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
@@ -61,7 +60,7 @@ let first_links = ["Atlanta Hawks", "Boston Celtics",
                       "Toronto Raptors",
                       "Utah Jazz", "Washington Wizards"];
 
-@Radium
+
 class SidebarContent extends React.Component {
   constructor(props, context) {
     super(props, context);

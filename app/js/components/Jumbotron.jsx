@@ -11,42 +11,26 @@ import DarkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 
 
-@ThemeDecorator(ThemeManager.getMuiTheme(DarkRawTheme))
 class BigPic extends React.Component {
 
-	//This is supposed to change the theme of material-ui
-		// constructor(props, context) {
-		//   super(props, context);
-		//   this.state = {
-		//   	muiTheme: ThemeManager.getMuiTheme(DarkRawTheme)
-		//   }
-		// }
+		constructor(props, context) {
+		  super(props, context);
+		  this.state = {
+		  	muiTheme: ThemeManager.getMuiTheme(DarkRawTheme)
+		  }
+		}
 
-		// static childContextTypes = {
-		//     muiTheme: React.PropTypes.object,
-		//  }
+		static childContextTypes = {
+		    muiTheme: React.PropTypes.object,
+		 }
 
-		// getChildContext() {
-		//    return {
-		//      muiTheme: this.state.muiTheme,
-		//    };
-		//  }
-
-		//  componentWillMount() {
-		//      let newMuiTheme = ThemeManager.modifyRawThemePalette(this.state.muiTheme, {
-		// 						primary1Color: "#1690DB",
-		// 						primary2Color: "#2173B3",
-		// 						primary3Color: "#A9D2EB",
-		// 						accent1Color: "#ED3B3B",
-		// 						accent2Color: "#ED2B2B",
-		// 						accent3Color: "#F58C8C",
+		getChildContext() {
+		   return {
+		     muiTheme: this.state.muiTheme,
+		   };
+		 }
 
 
-		// 						// rest of the palette is set from Theme Manager
-		// 						});
-
-		//      this.setState({muiTheme: newMuiTheme});
-		//    }
 
 		render() {
 			
