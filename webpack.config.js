@@ -32,11 +32,6 @@ var common = {
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-        include: './css'
-      },
-      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: ['react-hot', 'babel'],
@@ -75,12 +70,7 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
   module.exports = merge(common, {
     entry: {
       app: PATHS.app,
-      vendor: Object.keys(pkg.dependencies).filter(function(v) {
-        // Exclude alt-utils as it won't work with this setup
-        // due to the way the package has been designed
-        // (no package.json main).
-        return v !== 'alt-utils';
-      })
+      vendor: Object.keys(pkg.dependencies)
     },
     output: {
       path: PATHS.build,
@@ -98,6 +88,7 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
       ]
     },
     plugins: [
+      new webpack.optimize.DedupePlugin(),
       new Clean([PATHS.build]),
       // Output extracted CSS to a file
       new ExtractTextPlugin('styles.[chunkhash].css'),

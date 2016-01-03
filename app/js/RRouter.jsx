@@ -21,16 +21,6 @@ var history = createHistory({
 });
 
 
-// var routes = (
-//   <Route>
-//   	<Route path="/" handler={HomeView} />
-//     //<Route path="/app" location={App} />
-//   </Route>
-// );
-
-// console.log(HomeView);
-
-
 render((
   <Router history={history} >
     <Route path="/" component={HomeView} />
