@@ -1,7 +1,7 @@
 import React from 'react';
 import Img from './Img';
 import BasicInfo from './BasicInfo';
-import Notification from 'react-web-notification';
+import Notification from './Notification.jsx';
 var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var TeamStore = require('../stores/TeamStore');
@@ -17,7 +17,7 @@ class ThumbNail extends React.Component {
     this._onChange = this._onChange.bind(this);
     this._updateArticle = this._updateArticle.bind(this);
     this._handleArticle = this._handleArticle.bind(this);
-
+   
 
     this.state = {
 			name: this.getTeamState(),
@@ -48,8 +48,9 @@ class ThumbNail extends React.Component {
 	    });
 	  }
 
-	handleNotificationOnClick(e, tag){
+	handleNotificationOnClick(e, tag, link){
 	  console.log(e, 'Notification clicked tag:' + tag);
+	  window.location.href = link;
 	}
 
     handleNotificationOnError(e, tag){
@@ -73,7 +74,7 @@ class ThumbNail extends React.Component {
 	
 
 	    const title = newArticle.title;
-	    const body = newArticle.kwic;
+	    const body = "";
 	    const tag = "";
 	    const icon = newArticle.iurl;
 	    // const icon = 'http://localhost:3000/Notifications_button_24.png';
@@ -91,7 +92,7 @@ class ThumbNail extends React.Component {
 	      options: options
 	    });
 
-	    console.log("shoulda  worked");
+	  
 	}
 	
 	//retrieves current team name from TeamStore
@@ -118,16 +119,17 @@ class ThumbNail extends React.Component {
 		// triggers updateArticle
 		// bind article to current state.name
 		this._updateArticle();
+		
 	
 		//get new article as notification
 		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + '/results');
 		teamResRef.orderByChild('timeStamp').startAt(Date.now()).on('child_added', function(snapshot) {
 		  	var newArticle = snapshot.val();
 		  	
-		  	// console.log(newArticle);
-		  	// _handleArticle(newArticle);
-		  	console.log(this);
-		});
+		  	
+		  	 this._handleArticle(newArticle);
+		  
+		}.bind(this));
 	}
 
 	
@@ -153,9 +155,7 @@ class ThumbNail extends React.Component {
 	render() {
 		return (
 			<div>
-			<ul className="tiles">
-				<BasicInfo article={this.state.articles} />
-		        <Notification
+			<Notification
 	          ignore={this.state.ignore && this.state.title !== ''}
 	          notSupported={this.handleNotSupported.bind(this)}
 	          onPermissionGranted={this.handlePermissionGranted.bind(this)}
@@ -167,8 +167,12 @@ class ThumbNail extends React.Component {
 	          timeout={5000}
 	          title={this.state.title}
 	          options={this.state.options}/>
+			<ul className="tiles">
+				<BasicInfo article={this.state.articles} />
+		      
 
 	        </ul>
+
 	        </div>
 			)	
 	}
