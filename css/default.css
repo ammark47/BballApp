@@ -691,14 +691,20 @@ body {
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white;
+    text-align: center;
+}
+
+.react-search {
+	text-align: center;
 }
 
 .react-search__input {
 	width: 80%;
-	  height: 50px;
+	  height: 3em;
 	  background: #03a9f4;
 	  border: none;
 	  font-size: 10pt;
+	 
 	 
 	  color: white;
 
