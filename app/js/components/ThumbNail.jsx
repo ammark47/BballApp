@@ -1,26 +1,28 @@
 import React from 'react';
 import Img from './Img';
 import BasicInfo from './BasicInfo';
-import Notification from './Notification';
+import Notification from 'react-web-notification';
 var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var TeamStore = require('../stores/TeamStore');
 var reactMixin = require('react-mixin');
 
-// reactMixin(ThumbNail.prototype, Firebase);
+//allow react dev tools work
+window.React = React;
+
 
 class ThumbNail extends React.Component {
 	constructor(props, context) {
     super(props, context);
     this._onChange = this._onChange.bind(this);
     this._updateArticle = this._updateArticle.bind(this);
-   
+    this._handleArticle = this._handleArticle.bind(this);
 
 
     this.state = {
 			name: this.getTeamState(),
 			articles: [],
-			ignore: true,
+			ignore: false,
 			title: ''
 			};
 	}
@@ -62,7 +64,7 @@ class ThumbNail extends React.Component {
       console.log(e, 'Notification shown tag:' + tag);
     }
 
-	handleButtonClick() {
+	_handleArticle(newArticle) {
 
 	    if(this.state.ignore) {
 	      return;
@@ -70,10 +72,10 @@ class ThumbNail extends React.Component {
 
 	
 
-	    const title = "";
-	    const body = 'Hello' + new Date();
+	    const title = newArticle.title;
+	    const body = newArticle.kwic;
 	    const tag = "";
-	    const icon = 'http://georgeosddev.github.io/react-web-notification/example/Notifications_button_24.png';
+	    const icon = newArticle.iurl;
 	    // const icon = 'http://localhost:3000/Notifications_button_24.png';
 
 	    // Available options
@@ -81,7 +83,6 @@ class ThumbNail extends React.Component {
 	    const options = {
 	      tag: tag,
 	      body: body,
-	      icon: icon,
 	      lang: 'en',
 	      dir: 'ltr'
 	    }
@@ -89,6 +90,8 @@ class ThumbNail extends React.Component {
 	      title: title,
 	      options: options
 	    });
+
+	    console.log("shoulda  worked");
 	}
 	
 	//retrieves current team name from TeamStore
@@ -100,18 +103,11 @@ class ThumbNail extends React.Component {
 	// updates the node being referred to using the state 'name'
 	_updateArticle() {
 		//set teamRef as the node indicated by state.name
-		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + "/results");
-		var teamRef = new Firebase(this.props.baseUrl + this.state.name);
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + '/results');
 		
 		// binds articles with node from teamRef
 		this.bindAsArray(teamResRef, 'articles');
-		teamResRef.limitToLast(1).on('child_added', function(childSnapshot, prevChildKey) {
-		  // code to handle new child.
-		  // console.log(childSnapshot.val());
-		  	if(!childSnapshot.exists()){
-		  		console.log(childSnapshot.val());
-		  	}
-		});
+		
 		
 	}
 
@@ -122,13 +118,27 @@ class ThumbNail extends React.Component {
 		// triggers updateArticle
 		// bind article to current state.name
 		this._updateArticle();
-		
+	
+		//get new article as notification
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + '/results');
+		teamResRef.orderByChild('timeStamp').startAt(Date.now()).on('child_added', function(snapshot) {
+		  	var newArticle = snapshot.val();
+		  	
+		  	// console.log(newArticle);
+		  	// _handleArticle(newArticle);
+		  	console.log(this);
+		});
 	}
+
+	
 
 	//triggered when component unmounts
 	componentWillUnmount() {
 		//removes change listener
 		TeamStore.removeChangeListener(this._onChange);
+		//remove FBListener
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name);
+		teamResRef.off();
 		//unbinds article from articles
 		if(this.articles == '[]'){
 			console.log(this.articles);
@@ -136,10 +146,13 @@ class ThumbNail extends React.Component {
 		}
 		//this.unbind("articles");
 	}
+
+
+
 	//renders BasicInfo with all the articles
 	render() {
 		return (
-
+			<div>
 			<ul className="tiles">
 				<BasicInfo article={this.state.articles} />
 		        <Notification
@@ -156,7 +169,7 @@ class ThumbNail extends React.Component {
 	          options={this.state.options}/>
 
 	        </ul>
-	        
+	        </div>
 			)	
 	}
 	//this is added when the component mounts 
