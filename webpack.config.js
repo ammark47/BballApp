@@ -36,23 +36,7 @@ var common = {
         exclude: /node_modules/,
         loaders: ['react-hot', 'babel'],
         
-      },
-
-      {test: /^((?!config).)*\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
-      { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
-
-      // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
-      // loads bootstrap's css.
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   loader:"url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=image/svg+xml" },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.png$/, loader: "url-loader?limit=100000" },
-      { test: /\.jpg$/, loader: "file-loader" },
-      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
-
+       }
     ]
   },
   plugins: [
@@ -84,7 +68,7 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css!style-loader!css-loader',  'jpg!file-loader', 'woff(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/font-woff', 'ttf(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/octet-stream', 'eot(\?v=\d+\.\d+\.\d+)?!file', 'png!url-loader?limit=100000', "css!url?prefix=font/&limit=5000"),
+          loader: ExtractTextPlugin.extract('style', 'css', 'css!style-loader!css-loader', 'bootstrap!imports?jQuery=jquery',  'jpg!file-loader', 'woff(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/font-woff', 'ttf(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/octet-stream', 'eot(\?v=\d+\.\d+\.\d+)?!file', 'png!url-loader?limit=100000', "css!url?prefix=font/&limit=5000"),
           include: PATHS.app
         }
       ]
