@@ -4,7 +4,7 @@ import Buttons from 'react-button';
 import { Router, Route, Link } from 'react-router';
 import {RaisedButton} from 'material-ui';
 
-import MyRawTheme from '../../../css/raw-theme';
+
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
 import DarkRawTheme from 'material-ui/lib/styles/raw-themes/dark-raw-theme';
@@ -39,8 +39,8 @@ class BigPic extends React.Component {
 						<Jumbotron style={{height: "100%"}} className="lander">
 							<div className='container vertical-center intro-header'>
 								<div className='intro-message'>
-							    	<h1>Streets Ahead</h1>
-							    	<p>Real-time news for your favorite sports team</p>
+							    	<h1>Squad Stream</h1>
+							    	<p>Real-time news for your favorite NBA team</p>
 							    	<hr className="intro-divider"></hr>
 							 		<RaisedButton className="raised-button" label="Get Started" primary={true} 
 							 		containerElement={<Link to="/app" />} 

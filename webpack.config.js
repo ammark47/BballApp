@@ -37,7 +37,6 @@ var common = {
         loaders: ['react-hot', 'babel'],
         
       },
-      
 
       {test: /^((?!config).)*\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
       { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
@@ -58,7 +57,7 @@ var common = {
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Streets Ahead',
+      title: 'Squad Stream',
       template: 'index.html', // Load a custom template 
       inject: 'body' // Inject all scripts into the body 
     })
@@ -77,13 +76,16 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    sourcemaps: {
+      enabled: false
+    },
     module: {
       loaders: [
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
-          include: './css'
+          loader: ExtractTextPlugin.extract('style', 'css!style-loader!css-loader',  'jpg!file-loader', 'woff(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/font-woff', 'ttf(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/octet-stream', 'eot(\?v=\d+\.\d+\.\d+)?!file', 'png!url-loader?limit=100000', "css!url?prefix=font/&limit=5000"),
+          include: PATHS.app
         }
       ]
     },
@@ -113,6 +115,16 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
+     module: {
+      loaders: [
+        // Define development specific CSS setup
+        {
+          test: /\.css$/,
+          loaders: ['style', 'css'],
+          include: PATHS.app
+        }
+      ]
+    },
     devServer: {
       historyApiFallback: true,
       hot: true,
