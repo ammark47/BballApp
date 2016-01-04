@@ -60,16 +60,14 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
-    sourcemaps: {
-      enabled: false
-    },
+
     module: {
       loaders: [
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css', 'css!style-loader!css-loader', 'bootstrap!imports?jQuery=jquery',  'jpg!file-loader', 'woff(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/font-woff', 'ttf(\?v=\d+\.\d+\.\d+)?!url?limit=10000&mimetype=application/octet-stream', 'eot(\?v=\d+\.\d+\.\d+)?!file', 'png!url-loader?limit=100000', "css!url?prefix=font/&limit=5000"),
-          include: PATHS.app
+          loader: ExtractTextPlugin.extract('css!autoprefixer', 'style'),
+          include: './css'
         }
       ]
     },
