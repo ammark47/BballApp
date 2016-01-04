@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var Clean = require('clean-webpack-plugin');
@@ -34,7 +35,7 @@ var common = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot', 'babel']
         
        }
     ]
@@ -60,14 +61,16 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
-
+    sourcemaps: {
+      enabled: false
+    },
     module: {
       loaders: [
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('css!autoprefixer', 'style'),
-          include: './css'
+          loader:  ExtractTextPlugin.extract( "css-loader", "style-loader", 'style', "css", "autoprefixer"),
+          exclude: './node_modules'
         }
       ]
     },
@@ -102,9 +105,23 @@ if(TARGET === 'start' || !TARGET) {
         // Define development specific CSS setup
         {
           test: /\.css$/,
-          loaders: ['style', 'css'],
+          loaders: ["style", "css"],
           include: PATHS.app
-        }
+        },
+      {test: /^((?!config).)*\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
+      { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
+
+      // Needed for the css-loader when [bootstrap-webpack](https://github.com/bline/bootstrap-webpack)
+      // loads bootstrap's css.
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   loader:"url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.jpg$/, loader: "file-loader" },
+      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" }
       ]
     },
     devServer: {
