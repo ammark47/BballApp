@@ -1,10 +1,12 @@
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var fontgen = require('fontgen-loader');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+// require("font-awesome-webpack");
 var ROOT_PATH = path.resolve(__dirname);
 
 // Load *package.json* so we can use `dependencies` from there
@@ -21,7 +23,7 @@ const PATHS = {
 process.env.BABEL_ENV = TARGET;
 
 var common = {
-  entry: PATHS.app,
+  entry: [PATHS.app, "css/fa.js"],
   resolve: {
     extensions: ['', '.js', '.jsx'],
     
@@ -69,9 +71,46 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader:  ExtractTextPlugin.extract( "css-loader", "style-loader", 'style', "css", "autoprefixer"),
+          loader:  ExtractTextPlugin.extract('style-loader','css-loader'),
           exclude: './node_modules'
-        }
+        },
+        {
+          test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+          loader:  ExtractTextPlugin.extract('file'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+          loader:  ExtractTextPlugin.extract('url?limit=10000&mimetype=application/font-woff'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.woff2$/,
+          loader:  ExtractTextPlugin.extract('url?limit=10000&mimetype=application/font-woff'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+          loader:  ExtractTextPlugin.extract('url?limit=10000&mimetype=application/octet-stream'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+          loader:  ExtractTextPlugin.extract('url?limit=10000&mimetype=image/svg+xml'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.png$/,
+          loader:  ExtractTextPlugin.extract('url-loader?limit=100000'),
+          exclude: './node_modules'
+        },
+        {
+          test: /\.jpg$/,
+          loader:  ExtractTextPlugin.extract('file-loader'),
+          exclude: './node_modules'
+        },
+
+
       ]
     },
     plugins: [
