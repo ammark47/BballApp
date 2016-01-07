@@ -22,6 +22,8 @@ var history = createHistory({
   queryKey: false
 });
 
+ga('create', 'UA-56110516-3', 'auto');
+ga('send', 'pageview');
 
 render((
   <Router history={history} >
@@ -31,5 +33,4 @@ render((
   </Router>
 ), base)
 
-ga('create', 'UA-XXXX-Y', 'auto');
-ga('send', 'pageview');
+

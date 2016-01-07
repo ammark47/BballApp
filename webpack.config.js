@@ -23,7 +23,7 @@ const PATHS = {
 process.env.BABEL_ENV = TARGET;
 
 var common = {
-  entry: [PATHS.app, "css/fa.js"],
+  entry: [PATHS.app],
   resolve: {
     extensions: ['', '.js', '.jsx'],
     
@@ -106,9 +106,14 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
         },
         {
           test: /\.jpg$/,
-          loader:  ExtractTextPlugin.extract('file-loader'),
+          loader:  ExtractTextPlugin.extract('file-loader?limit=100000'),
           exclude: './node_modules'
         },
+        {
+          test: /\.gif$/,
+          loader:  ExtractTextPlugin.extract('url-loader?limit=100000'),
+          exclude: './node_modules'
+        }
 
 
       ]
@@ -121,7 +126,7 @@ if(TARGET === 'build' || TARGET === 'stats' || TARGET === 'deploy') {
       // Extract vendor and manifest files
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest']
-      }),
+      }, false, false),
       // Setting DefinePlugin affects React library size!
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
