@@ -1,11 +1,15 @@
 # BballApp
 
-Squad Stream
+Squad Stream  
+
 A Real-Time news article streaming to your favorite NBA Team
+
 
 Check it out: http://www.squadstream.com/#/
 
-I am looking forward to any contributions
+
+I've built the front end in React.js. 
+ If that's you're thing I am looking forward to any contributions
 
 ``` 
     1. Fork
