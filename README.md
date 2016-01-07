@@ -26,5 +26,5 @@ I've built the front end in React.js.
 
 Plans for the future 
 
-1. Add log-in/Authentication feature
+1. Add log-in/Authentication feature using this (https://auth0.com/docs/quickstart/spa/react/firebase)
 2. Add a comment section for each article 
