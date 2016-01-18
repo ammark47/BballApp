@@ -69,12 +69,21 @@ class SidebarContent extends React.Component {
     this.pushName = this.pushName.bind(this);
     this.createList = this.createList.bind(this);
     this.changeLinks = this.changeLinks.bind(this);
+    this.showLock = this.showLock.bind(this);
     this.setState = this.setState.bind(this);
     this.state = {
       result_links: this.createList(),
       isShowingModal: false,
       initial_links: first_links,
     };
+  }
+
+
+  showLock() {
+   
+    // We receive lock from the parent component in this case
+    // If you instantiate it in this component, just do this.lock.show()
+    this.props.lock.show(); 
   }
 
   handleClick = () => this.setState({isShowingModal: true})
@@ -120,6 +129,8 @@ class SidebarContent extends React.Component {
 
   }
 
+
+
   enterHover(team_name) {
     
       TeamActions.setHoverTeam(team_name);
@@ -147,20 +158,16 @@ class SidebarContent extends React.Component {
     return (
       <MaterialTitlePanel title="Menu" style={style}>
         <a href='#' style={styles.base.sidebarLink}>Home</a>
-        <a onClick={this.handleClick} style={styles.base.sidebarLink}>
+        <a onClick={this.handleClick} style={styles.base.sidebarLink}>Log In</a>
+        <div style={styles.base.divider} /> 
           {
-            this.state.isShowingModal &&
-            <ModalContainer onClose={this.handleClose}>
-              <ModalDialog onClose={this.handleClose}>
-                <h1>Coming Soon!</h1>
-              </ModalDialog>
-            </ModalContainer>
-          }
-
-        Log In
-
-        </a>
-        <div style={styles.base.divider} />
+           this.state.isShowingModal &&
+           <ModalContainer onClose={this.handleClose}>
+             <ModalDialog onClose={this.handleClose}>
+               <h1>Coming Soon!</h1>
+             </ModalDialog>
+           </ModalContainer>
+         }
             <Search
                 items={this.state.initial_links}
                 placeholder='Search for your team'
@@ -173,4 +180,15 @@ class SidebarContent extends React.Component {
 export default SidebarContent;
 // hover feature 
 // onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}
+
+//Modal feature
+
+ // {
+ //            this.state.isShowingModal &&
+ //            <ModalContainer onClose={this.handleClose}>
+ //              <ModalDialog onClose={this.handleClose}>
+ //                <h1>Coming Soon!</h1>
+ //              </ModalDialog>
+ //            </ModalContainer>
+ //          }
 

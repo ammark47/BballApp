@@ -27,6 +27,7 @@ class ThumbNail extends React.Component {
 			};
 	}
 
+
 	handlePermissionGranted() {
 	    console.log('Permission Granted');
 	    this.setState({

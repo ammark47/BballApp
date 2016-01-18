@@ -753,7 +753,8 @@ body {
 	border-radius: 0.2em;
 	margin-left: 1em;
 	margin-top: 2em;
-	height: 21em;
+	height: 25em;
+	position: relative;
 }
 .tiles li img{
 	border-top-left-radius:0.2em;
@@ -2411,3 +2412,26 @@ p.copyright {
 		line-height: 1.8;
 	}
 }
+
+/*********************************************************************************/
+/* socialMedia.css                                                            */
+/*********************************************************************************/
+
+	.Demo_container {
+		position: absolute;
+		bottom: .3em;
+	}
+	
+
+	.Demo__some-network {
+        margin-right: 1.7em;
+        margin-left: .3em;
+        text-align: center;
+        position: relative;
+        float: left;
+        border-bottom: 0;
+    }
+
+    .Demo__some-network__share-count {
+        font-size: 12px;
+    }

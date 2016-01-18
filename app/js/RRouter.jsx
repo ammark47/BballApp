@@ -23,14 +23,15 @@ var history = createHistory({
 });
 
 ga('create', 'UA-56110516-3', 'auto');
+ga('require', 'linkid');
 ga('send', 'pageview');
 
 render((
-  <Router history={history} >
+  <Router  history={history}>
     <Route path="/" component={HomeView} />
     <Route path="app" component={App} />
     
   </Router>
 ), base)
 
-
+// history={history}

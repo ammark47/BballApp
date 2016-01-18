@@ -45,6 +45,7 @@
     "less-loader": "^2.2.0",
     "node-libs-browser": "^0.5.2",
     "npm": "^3.5.2",
+    "react-share": "^1.4.1",
     "react-tap-event-plugin": "^0.2.1",
     "react-transform-hmr": "^1.0.1",
     "source-map": "^0.5.3",

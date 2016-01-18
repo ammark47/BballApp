@@ -76,7 +76,7 @@ export default class Navs extends React.Component {
 
   render() {
      
-    let sidebar = <SidebarContent />;
+    let sidebar = <SidebarContent lock={this.props.lock} />;
 
     let contentHeader = (
       <span>
@@ -94,6 +94,7 @@ export default class Navs extends React.Component {
       dragToggleDistance: this.state.dragToggleDistance,
       transitions: this.state.transitions,
       onSetOpen: this.onSetOpen,
+
     };
 
     return (
