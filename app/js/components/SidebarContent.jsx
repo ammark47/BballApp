@@ -74,6 +74,7 @@ class SidebarContent extends React.Component {
     this.state = {
       result_links: this.createList(),
       isShowingModal: false,
+      isShowingModalTwo: false,
       initial_links: first_links,
     };
   }
@@ -88,6 +89,9 @@ class SidebarContent extends React.Component {
 
   handleClick = () => this.setState({isShowingModal: true})
   handleClose = () => this.setState({isShowingModal: false})
+
+  handleClickTwo = () => this.setState({isShowingModalTwo: true})
+  handleCloseTwo = () => this.setState({isShowingModalTwo: false})
 
 
   pushName(name) {
@@ -113,7 +117,7 @@ class SidebarContent extends React.Component {
             let team = links[j];
           
             result_links.push(
-                <a key={links[j]} style={styles.base.sidebarLink} onClick={this.pushName.bind(null, team)} onMouseOver={this.enterHover.bind(null, links[j])} onMouseLeave={this.exitHover}>{team}
+                <a key={links[j]} style={styles.base.sidebarLink} onClick={this.pushName.bind(null, team)} /*onMouseOver={this.enterHover.bind(null, links[j])}  onMouseLeave={this.exitHover} */>{team}
 
                 </a>
               );
@@ -159,12 +163,29 @@ class SidebarContent extends React.Component {
       <MaterialTitlePanel title="Menu" style={style}>
         <a href='#' style={styles.base.sidebarLink}>Home</a>
         <a onClick={this.handleClick} style={styles.base.sidebarLink}>Log In</a>
+        <a onClick={this.handleClickTwo} style={styles.base.sidebarLink}>Updates</a>
         <div style={styles.base.divider} /> 
           {
            this.state.isShowingModal &&
            <ModalContainer onClose={this.handleClose}>
              <ModalDialog onClose={this.handleClose}>
                <h1>Coming Soon!</h1>
+             </ModalDialog>
+           </ModalContainer>
+         }
+         {
+           this.state.isShowingModalTwo &&
+           <ModalContainer onClose={this.handleCloseTwo}>
+              <ModalDialog onClose={this.handleCloseTwo}>
+
+                  <h4>Updates</h4>
+                    <ul>
+                        <li>&nbsp; &nbsp; &nbsp;  - Undocked sidebar on phones and improved remembering teams - 01/18/16</li>
+                        <li>&nbsp; &nbsp; &nbsp;  - Added social media sharing buttons - 01/17/16 </li>
+                        <li>&nbsp; &nbsp; &nbsp;  - Removed hover preview - 01/17/16 </li>
+                    </ul>
+                    <p>Contact Me: Ammar.Karim94@gmail.com</p>
+
              </ModalDialog>
            </ModalContainer>
          }

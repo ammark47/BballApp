@@ -36,11 +36,11 @@ var TeamStore = _.extend({}, EventEmitter.prototype, {
 	getSelected: function() {
 		var _localTeam = localStorage.getItem('_localTeam');
 
-		if(_localTeam !== "undefined"){
-			// console.log(typeof (_localTeam) );
+		if(_localTeam !== null){
+		
 			return _localTeam;
 		} else {
-
+		
 		return _team;
 	}
 	},

@@ -8,6 +8,7 @@ var TeamStore = require('../stores/TeamStore');
 import { render } from 'react-dom';
 import React from 'react';
 
+window.React = React;
 
 const styles = {
   contentHeaderMenuLink: {
@@ -23,14 +24,18 @@ export default class Navs extends React.Component {
     this._onChange = this._onChange.bind(this);
     this.menuButtonClick = this.menuButtonClick.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
+    this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
+    this.setState = this.setState.bind(this);
 
     this.state = {
-      docked: true,
-      open: false,
       transitions: true,
       touch: true,
       touchHandleWidth: 20,
       dragToggleDistance: 30,
+      sidebarOpen: false, 
+      sidebarDocked: false,
       name: this.getStateFromStore(),
     };
   }
@@ -43,17 +48,43 @@ export default class Navs extends React.Component {
       
   }
 
+
+   componentWillMount() {
+    var mql = window.matchMedia(`(min-width: 800px)`);
+    mql.addListener(this.mediaQueryChanged);
+    this.setState({mql: mql, sidebarDocked: mql.matches});
+
+  }
+
+   mediaQueryChanged() {
+    this.setState({sidebarDocked: this.state.mql.matches});
+  }
+
   componentDidMount() {
     TeamStore.addChangeListener(this._onChange);
     
   }
 
+
   componentWillUnmount() {
     TeamStore.removeChangeListener(this._onChange);
+    this.state.mql.removeListener(this.mediaQueryChanged);
   }
 
   onSetOpen(open) {
-    this.setState({open: open});
+    this.setState({sidebarOpen: open});
+  }
+
+  onSetSidebarOpen(open) {
+    this.setState({sidebarOpen: open});
+  }
+
+  toggleOpen(ev) {
+    this.setState({sidebarOpen: !this.state.sidebarOpen});
+
+    if (ev) {
+      ev.preventDefault();
+    }
   }
 
   menuButtonClick(ev) {
@@ -81,14 +112,14 @@ export default class Navs extends React.Component {
     let contentHeader = (
       <span>
         {!this.state.docked &&
-         <a onClick={this.menuButtonClick} href='#' style={styles.contentHeaderMenuLink}>=</a>}
+         <a onClick={this.toggleOpen} href='#' style={styles.contentHeaderMenuLink}>=</a>}
         <span> {this.state.name}</span>
       </span>);
 
     let sidebarProps = {
       sidebar: sidebar,
-      docked: this.state.docked,
-      open: this.state.open,
+      docked: this.state.sidebarDocked,
+      open: this.state.sidebarOpen,
       touch: this.state.touch,
       touchHandleWidth: this.state.touchHandleWidth,
       dragToggleDistance: this.state.dragToggleDistance,
@@ -99,7 +130,7 @@ export default class Navs extends React.Component {
 
     return (
       <Sidebar {...sidebarProps}>
-        <MaterialTitlePanel title={this.state.name}>
+        <MaterialTitlePanel title={<a onClick={this.toggleOpen} href="#" style={styles.contentHeaderMenuLink}>= &nbsp; {this.state.name}</a>}>
           <div className="content">
               <div className="wrap">
                  <div className="control" role="main" style={{"height": "2180px"}}>
@@ -117,7 +148,7 @@ export default class Navs extends React.Component {
   _onChange() {
     var team = this.getStateFromStore();
     this.setState({name: team});
-   
   }
+
 }
 

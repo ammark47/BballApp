@@ -1,5 +1,4 @@
 import React from 'react';
-import Img from './Img';
 import BasicInfo from './BasicInfo';
 import Notification from './Notification.jsx';
 var Firebase = require('firebase');
