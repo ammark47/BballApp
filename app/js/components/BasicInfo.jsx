@@ -35,17 +35,18 @@ class BasicInfo extends React.Component {
 						if(article.enclosure.link == ""){
 							article.enclosure.link = "basketball.jpg";
 						};
-					
+			
 						
 						var shareUrl = article.link;
 						var title = article.title;
-
+						title = title.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"');
+						
 
 						return(
 						<li key={key}>
-							<Image item={article}/>
+							<Image pic={pic}/>
 							<div className="post-basic-info">
-								<h3><a target="_blank" href={article.link}>{article.title}</a></h3>
+								<h3><a target="_blank" href={article.link}>{title}</a></h3>
 								<span><a href="#"><label> </label>{article.team}</a></span>
 								<p>{article.description}</p>
 								<SocialSharing shareUrl={shareUrl} title={title} pic={pic} />
@@ -65,7 +66,7 @@ class BasicInfo extends React.Component {
 
 						return(
 						<li key={key}>
-							<Image item={article}/>
+							<Image pic={pic}/>
 							<div className="post-basic-info">
 								<h3><a target="_blank" href={article.url}>{article.title}</a></h3>
 								<span><a href="#"><label> </label>{article.team}</a></span>

@@ -22,10 +22,10 @@ export default class Image extends React.Component {
   }
 
 	render() {
-
+		
 	    return (
 	      <ImageLoader 
-	      src={this.props.item.iurl}
+	      src={this.props.pic}
 	      style={{"width": "282px", "height": "200px"}}
 	      preloader={this.preloader}>
 	      {this.error()}

@@ -106,7 +106,7 @@ class ThumbNail extends React.Component {
 		//set teamRef as the node indicated by state.name
 		var teamResRef = new Firebase(this.props.baseUrl + this.state.name);
 
-		if(this.state.name === "Dallas Mavericks"){
+		if(this.state.name === "Dallas Mavericks" || this.state.name === "Washington Wizards" ){
 			
 			teamResRef = new Firebase("https://articleserver.firebaseio.com/" + this.state.name + '/results');
 		}
