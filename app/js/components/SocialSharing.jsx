@@ -33,6 +33,7 @@ class SocialSharing extends React.Component {
 	  }
 
 	render() {
+		// console.log(this.props.shareUrl);
 		
 			return (
 				<div className='Demo_container'>
@@ -79,23 +80,7 @@ class SocialSharing extends React.Component {
 									        </TwitterShareButton>
 									     </div>  
 
-									     <div className='Demo__some-network'>
-							                <PinterestShareButton
-									            url={this.props.shareUrl}
-									            media={this.props.pic}
-									            title={this.props.title}
-									            className="Demo__some-network__share-count">
-								            <PinterestIcon
-								              size={32}
-								              round={true} />
-									        </PinterestShareButton>
-									        <PinterestShareCount
-							                    url={this.props.shareUrl}
-							                    media={this.props.pic}
-							                    className="Demo__some-network__share-count">
-							                    {count => count}
-							                </PinterestShareCount>
-							             </div>
+									     
 					              
 					</div>
 				);

@@ -30,15 +30,25 @@ class BasicInfo extends React.Component {
 		});
 
 		var articleNodes = article.map(function(article, key){
-				if (article.enclosure != null){
-						var pic = article.enclosure.link;
-						if(article.enclosure.link == ""){
-							article.enclosure.link = "basketball.jpg";
+				if (article.pubDate != null){
+
+						if (article.enclosure != null){
+							var pic = article.enclosure.link;
+						} else {
+							var pic = "basketball.jpg";
 						};
-			
+						
 						
 						var shareUrl = article.link;
 						var title = article.title;
+						
+		
+						if(description !== undefined){
+							var description = article.description;
+							description = description.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"');
+						}
+
+						
 						title = title.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"');
 						
 
@@ -47,7 +57,7 @@ class BasicInfo extends React.Component {
 							<Image pic={pic}/>
 							<div className="post-basic-info">
 								<h3><a target="_blank" href={article.link}>{title}</a></h3>
-								<span><a href="#"><label> </label>{article.team}</a></span>
+								
 								<p>{article.description}</p>
 								<SocialSharing shareUrl={shareUrl} title={title} pic={pic} />
 							</div>

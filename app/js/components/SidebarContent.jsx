@@ -180,7 +180,7 @@ class SidebarContent extends React.Component {
 
                   <h4>Updates</h4>
                     <ul>
-                        <li>&nbsp; &nbsp; &nbsp;  - Switched to NBA article server - 01/19/16</li>
+                        <li>&nbsp; &nbsp; &nbsp;  - Switched to NBA article server for newer content - 01/20/16</li>
                         <li>&nbsp; &nbsp; &nbsp;  - Undocked sidebar on phones and improved remembering teams - 01/18/16</li>
                         <li>&nbsp; &nbsp; &nbsp;  - Added social media sharing buttons - 01/17/16 </li>
                         <li>&nbsp; &nbsp; &nbsp;  - Removed hover preview - 01/17/16 </li>
