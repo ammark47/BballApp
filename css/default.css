@@ -755,6 +755,7 @@ body {
 	margin-top: 2em;
 	height: 25em;
 	position: relative;
+	overflow: auto;
 }
 .tiles li img{
 	border-top-left-radius:0.2em;

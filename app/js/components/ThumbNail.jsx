@@ -104,7 +104,12 @@ class ThumbNail extends React.Component {
 	// updates the node being referred to using the state 'name'
 	_updateArticle() {
 		//set teamRef as the node indicated by state.name
-		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + '/results');
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name);
+
+		if(this.state.name === "Dallas Mavericks"){
+			
+			teamResRef = new Firebase("https://articleserver.firebaseio.com/" + this.state.name + '/results');
+		}
 		
 		// binds articles with node from teamRef
 		this.bindAsArray(teamResRef, 'articles');
@@ -122,7 +127,7 @@ class ThumbNail extends React.Component {
 		
 	
 		//get new article as notification
-		var teamResRef = new Firebase(this.props.baseUrl + this.state.name + '/results');
+		var teamResRef = new Firebase(this.props.baseUrl + this.state.name);
 		teamResRef.orderByChild('timeStamp').startAt(Date.now()).on('child_added', function(snapshot) {
 		  	var newArticle = snapshot.val();
 		  	
@@ -194,7 +199,7 @@ class ThumbNail extends React.Component {
 
 	// sets baseUrl as prop with base firebase node
 ThumbNail.defaultProps = {
- baseUrl: "https://articleserver.firebaseio.com/"
+ baseUrl: "https://articletestserver.firebaseio.com/"
 };
 
 reactMixin(ThumbNail.prototype, ReactFireMixin);

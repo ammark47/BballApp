@@ -27,7 +27,7 @@ export default class Image extends React.Component {
 	      <ImageLoader 
 	      src={this.props.item.iurl}
 	      style={{"width": "282px", "height": "200px"}}
-	      >
+	      preloader={this.preloader}>
 	      {this.error()}
 	      </ImageLoader>
 	    );
