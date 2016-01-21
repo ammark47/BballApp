@@ -26,7 +26,7 @@ class BasicInfo extends React.Component {
 
 		
 		article.sort(function(a, b){
-			return b.date - a.date;
+			return b.timeStamp - a.timeStamp;
 		});
 
 		var articleNodes = article.map(function(article, key){
