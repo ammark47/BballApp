@@ -45,11 +45,11 @@ class BasicInfo extends React.Component {
 		
 						if(description !== undefined){
 							var description = article.description;
-							description = description.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"');
+							description = description.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"').replace(/amp;/g, "&");
 						}
 
 						
-						title = title.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"');
+						title = title.replace(/&amp;/g, "").replace(/#039;/g, "'").replace(/quot;/g, '"').replace(/amp;/g, "&");
 						
 
 						return(

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Router, Route, Link } from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
@@ -30,7 +29,7 @@ render((
   <Router  history={history}>
     <Route path="/" component={HomeView} />
     <Route path="app" component={App} />
-    
+
   </Router>
 ), base)
 
