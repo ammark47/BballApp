@@ -37,6 +37,7 @@ export default class Navs extends React.Component {
       sidebarOpen: false, 
       sidebarDocked: false,
       name: this.getStateFromStore(),
+      shadow: false,
     };
   }
 

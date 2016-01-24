@@ -164,6 +164,7 @@ if(TARGET === 'start' || !TARGET) {
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&mimetype=image/svg+xml" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.gif$/, loader: "file-loader" },
       { test: /\.jpg$/, loader: "file-loader" },
       { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" }
       ]

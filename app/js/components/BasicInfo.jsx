@@ -14,8 +14,17 @@ var styles = {
 class BasicInfo extends React.Component {
 		constructor(props, context) {
 	    super(props, context);
+	    this.handleClick = this.handleClick.bind(this);
 
 	  }
+
+	handleClick(e, link){
+		e.preventDefault();
+		console.log(e);
+		console.log(e.defaultPrevented); //returning false
+
+		
+	}
 
 
 	render() {
@@ -53,7 +62,7 @@ class BasicInfo extends React.Component {
 						
 
 						return(
-						<li key={key}>
+						<li key={key} onClick={this.handleClick(event, shareUrl)}>
 							<Image pic={pic}/>
 							<div className="post-basic-info">
 								<h3><a target="_blank" href={article.link}>{title}</a></h3>
@@ -86,7 +95,7 @@ class BasicInfo extends React.Component {
 						</li>
 						)
 				}		
-			});
+			}.bind(this));
 		return(
 				<div>
 					{articleNodes}

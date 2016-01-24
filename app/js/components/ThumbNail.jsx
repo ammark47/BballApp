@@ -75,8 +75,8 @@ class ThumbNail extends React.Component {
 
 	    const title = newArticle.title;
 	    const body = "";
-	    const tag = newArticle.url;
-	    const icon = newArticle.iurl;
+	    const tag = newArticle.link;
+	    const icon = newArticle.enclosure.link;
 	    // const icon = 'http://localhost:3000/Notifications_button_24.png';
 
 	    // Available options
@@ -169,7 +169,7 @@ class ThumbNail extends React.Component {
 	          onClick={this.handleNotificationOnClick.bind(this)}
 	          onClose={this.handleNotificationOnClose.bind(this)}
 	          onError={this.handleNotificationOnError.bind(this)}
-	          timeout={5000}
+	          timeout={10000}
 	          title={this.state.title}
 	          options={this.state.options}/>
 			<ul className="tiles">

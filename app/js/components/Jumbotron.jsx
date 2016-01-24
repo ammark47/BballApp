@@ -41,7 +41,7 @@ class BigPic extends React.Component {
 			
 			return (
 					<div className='wrapper big'>
-						<Jumbotron style={{height: "100%", backgroundImage: "url('basketball.jpg')"}} className="lander">
+						<Jumbotron style={{height: "100%", backgroundImage: "url(basketball.jpg)"}} className="lander">
 							<div className='container vertical-center intro-header'>
 								<div className='intro-message'>
 							    	<h1>Squad Stream</h1>

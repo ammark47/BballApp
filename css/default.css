@@ -1,6 +1,7 @@
 	html, body
 	{
 		height: 100%;
+		width: 100%;
 	}
 	
 	body
@@ -53,7 +54,7 @@
 	
 	.container
 	{
-		width: 1200px;
+		width: 100%;
 		margin: 0px auto;
 	}
 
@@ -166,7 +167,6 @@
 		font-size: 3em;
 		font-weight: 700;
 		color: #3f3f3f;
-		margin-left: .7em;
 		text-align: center;
 	}
 
@@ -443,9 +443,12 @@
 	.column3,
 	.column4
 	{
-		width: 282px;
+		width: 25%;
+		margin-left: 5em;
 
 	}
+
+
 	
 	.column1,
 	.column2
@@ -466,21 +469,9 @@
 
 	}
 
-	.middleColumn .title .byline
-	{
-		
-	}
 
-	.middleColumn
-	{
-		margin-left: 10%;
-		margin-right: 10%;
-	}
 
-	.leftColumn
-	{
-		margin-left: 2.3em;
-	}
+	
 /*********************************************************************************/
 /* Portfolio                                                                     */
 /*********************************************************************************/
@@ -674,7 +665,7 @@ body {
     .dashboard-wrapper.sidenav-open  {
         padding-left: 250px;
     }
-
+}
 
 /*********************************************************************************/
 /* REACT STUFF                                                                 */
@@ -2185,7 +2176,7 @@ body {
     background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(../images/basketball.jpg);
     background-size: cover;
 }
-}
+
 
 .topnav {
     font-size: 14px; 
@@ -2270,7 +2261,7 @@ body {
 
 .content-section-a {
     padding: 50px 0;
-    background-color: #f8f8f8;
+    background-color: white;
 }
 
 .content-section-b {
@@ -2436,3 +2427,34 @@ p.copyright {
     .Demo__some-network__share-count {
         font-size: 12px;
     }
+
+
+/*********************************************************************************/
+/* mobile specific                                                          */
+/*********************************************************************************/
+
+
+@media only screen and (max-device-width: 480px) {
+		
+
+		.column1,
+		.column2
+		{
+			margin-left: 2em;
+			width: 85%;
+			margin-bottom: 2em;
+			text-align: center;
+		}
+
+		.column3
+		{
+			margin-left: 2em;
+			width: 85%;
+			text-align: center;
+		}
+
+
+
+ }
+ 
+
